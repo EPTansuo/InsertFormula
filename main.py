@@ -21,7 +21,11 @@ def mathpixAPI(filename):
     r = mathpix.latex({
         'src': mathpix.image_uri(filename+".jpg"),
         'ocr':['math','text'],
-        'formats': ['latex_styled']
+        'formats': ['latex_styled'],
+        'format_options': {
+            'text': { 'transforms': ['rm_spaces', 'rm_newlines']},
+            'latex_styled': {'transforms': ['rm_spaces']}
+        }
     })
     print(json.dumps(r, indent=4, sort_keys=True))
     latex_str = r['latex_styled']
