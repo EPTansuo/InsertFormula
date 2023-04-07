@@ -2,3 +2,4 @@
 run_my.sh
 test.py
 __pycache__
+/myenv
