@@ -5,6 +5,7 @@ import time
 import json
 import pyperclip
 import mathpix
+import imageproc
 import subprocess
 import multiprocessing
 from pynput import keyboard 
@@ -18,11 +19,12 @@ def runXournalpp(filename):
 
 def mathpixAPI(filename):
     r = mathpix.latex({
-        'src': mathpix.image_uri(filename+".png"),
-        'formats': ['latex_simplified']
+        'src': mathpix.image_uri(filename+".jpg"),
+        'ocr':['math','text'],
+        'formats': ['latex_styled']
     })
     print(json.dumps(r, indent=4, sort_keys=True))
-    latex_str = r['latex_simplified']
+    latex_str = r['latex_styled']
     print(latex_str)
     pyperclip.copy("\n$$\n"+latex_str+"\n$$\n")
 
@@ -34,6 +36,7 @@ def onHotKeyPressed(filename,xournalpp_proc):
     xournalpp_proc.terminate()
     os.system("xournalpp "+filename+".xopp "+"-i " +
               filename+".png")
+    imageproc.proc(filename)
     mathpixAPI_p = multiprocessing.Process(target=mathpixAPI,args=(filename,))
     mathpixAPI_p.start()
     exit(0)

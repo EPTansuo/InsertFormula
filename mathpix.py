@@ -28,12 +28,12 @@ service = 'https://api.mathpix.com/v3/latex'
 #
 def image_uri(filename):
     image_data = open(filename, "rb").read()
-    return "data:image/png;base64," + base64.b64encode(image_data).decode()
+    return "data:image/jpg;base64," + base64.b64encode(image_data).decode()
 
 #
 # Call the Mathpix service with the given arguments, headers, and timeout.
 #
-def latex(args, headers=default_headers, timeout=30):
+def latex(args, headers=default_headers, timeout=100):
     r = requests.post(service,
         data=json.dumps(args), headers=headers, timeout=timeout)
     return json.loads(r.text)
