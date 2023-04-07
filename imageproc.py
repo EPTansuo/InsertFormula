@@ -1,7 +1,6 @@
 #/usr/bin/python
 
 from PIL import Image,ImageOps
-import numpy as np 
 
 
 def proc(filename):
